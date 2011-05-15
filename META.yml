@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Gearman-Spawner
-version:            1.00
+version:            1.01
 abstract:           Lifecycle manager for Gearman workers
 author:
     - Adam Thomason <athomason@cpan.org>
@@ -16,6 +16,7 @@ requires:
     Gearman::Client:      1.11
     Gearman::Client::Async:  0.94
     Gearman::Server:      1.11
+    IO::Socket::INET:     1.31
     POSIX:                0
     Storable:             0
 no_index:
