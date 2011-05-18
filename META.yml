@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Gearman-Spawner
-version:            1.04
+version:            1.05
 abstract:           Lifecycle manager for Gearman workers
 author:
     - Adam Thomason <athomason@cpan.org>
