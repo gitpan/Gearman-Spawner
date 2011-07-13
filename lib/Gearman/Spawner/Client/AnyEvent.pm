@@ -104,6 +104,10 @@ be serialized with Storable is allowed. If omitted, undef is sent.
 I<error_cb> will be called. Even if the job subsequently completes,
 I<success_cb> will not be called.
 
+=item unique
+
+(Optional) The opaque unique tag for coalescing jobs.
+
 =back
 
 =cut
@@ -120,7 +124,7 @@ sub run_method {
     my $timeout     = delete $params{timeout}       || undef;
     my $unique      = delete $params{unique}        || undef;
 
-    croak "unknown parameters to run_method: %params" if %params;
+    croak "unknown parameters to run_method: @{[%params]}" if %params;
 
     my $function = Gearman::Spawner::Util::method2function($class, $method);
 
@@ -196,6 +200,10 @@ Options:
 (Optional) The job-specific data to pass to the worker. Any structure that can
 be serialized with Storable is allowed. If omitted, undef is sent.
 
+=item unique
+
+(Optional) The opaque unique tag for coalescing jobs.
+
 =back
 
 =cut
@@ -207,13 +215,19 @@ sub run_method_background {
     my $class       = delete $params{class}         || croak "need class";
     my $method      = delete $params{method}        || croak "need method";
     my $data        = delete $params{data}          || undef;
+    my $unique      = delete $params{unique}        || undef;
 
-    croak "unknown parameters to run_method_background: %params" if %params;
+    croak "unknown parameters to run_method_background: @{[%params]}" if %params;
 
     my $function = Gearman::Spawner::Util::method2function($class, $method);
 
     my $serialized = nfreeze([$data]);
-    $self->add_task_bg($function => $serialized);
+
+    my %options;
+
+    $options{unique} = $unique if defined $unique;
+
+    $self->add_task_bg($function => $serialized, %options);
 
     return;
 }
