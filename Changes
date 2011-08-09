@@ -1,4 +1,9 @@
 Revision history for Perl extension Gearman::Spawner
+1.11  Tue Aug  9 15:56:31 PDT 2011
+    - Fix unique support in sync/danga clients
+1.10  Fri Aug  5 11:12:58 PDT 2011
+    - Add unique support to sync client
+    - Add known failure for background task in async client
 1.09  Wed Jul 13 13:56:02 PDT 2011
     - Add unique support for background tasks
 1.08  Mon May 23 16:15:13 PDT 2011
